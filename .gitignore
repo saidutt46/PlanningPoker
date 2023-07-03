@@ -192,6 +192,8 @@ ClientBin/
 *.publishsettings
 node_modules/
 .angular/cache
+package.lock.json
+
 orleans.codegen.cs
 
 # RIA/Silverlight projects

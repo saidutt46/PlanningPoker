@@ -19,7 +19,16 @@
       "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      "@services": ["src/app/services/index.ts"],
+      "@models": ["src/app/models/index.ts"],
+      "@components": ["src/app/components/index.ts"],
+      "@modules": ["src/app/modules/index.ts"],
+      "@directives": ["src/app/directives/index.ts"],
+      "@pipes": ["src/app/pipes/index.ts"],
+      "@shared": ["src/app/shared/index.ts"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

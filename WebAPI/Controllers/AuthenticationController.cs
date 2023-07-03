@@ -20,7 +20,7 @@ using WebAPI.ViewModels;
 
 namespace JWTAuthentication.Controllers
 {
-    [Route("auser")]
+    [Route("user")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
@@ -45,7 +45,7 @@ namespace JWTAuthentication.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
             var user = await userManager.FindByNameAsync(model.Username!);
-            if (user != null && await userManager.CheckPasswordAsync(user, model.Password) == false)
+            if (user != null && await userManager.CheckPasswordAsync(user, model.Password!) == false)
             {
                 return BadRequest("Incorrect Password, please retry with a valid password for given user");
             }
@@ -95,20 +95,16 @@ namespace JWTAuthentication.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
             try
             {
-                var userExists = await userManager.FindByNameAsync(model.Username);
+                var userExists = await userManager.FindByNameAsync(model.Username!);
                 if (userExists != null)
                     return StatusCode(StatusCodes.Status500InternalServerError, new AuthResponse { Status = "Error", Message = "User already exists!" });
 
                 ApplicationUser user = new ApplicationUser()
                 {
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = model.Username,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    DateOfBirth = model.DateOfBirth,
-                    Email = model.Email
+                    UserName = model.Username
                 };
-                var result = await userManager.CreateAsync(user, model.Password);
+                var result = await userManager.CreateAsync(user, model.Password!);
                 if (!result.Succeeded)
                 {
                     var message = "";
@@ -138,11 +134,8 @@ namespace JWTAuthentication.Controllers
 
             ApplicationUser user = new ApplicationUser()
             {
-                Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username,
-                FirstName = model.FirstName,
-                LastName = model.LastName
+                UserName = model.Username
             };
             var result = await userManager.CreateAsync(user, model.Password!);
             if (!result.Succeeded)
@@ -166,7 +159,7 @@ namespace JWTAuthentication.Controllers
                 await userManager.AddToRoleAsync(user, UserRoles.Admin);
             }
 
-            return Ok(new AuthResponse { Status = "Success", Message = "User created successfully!" });
+            return Ok(new AuthResponse { Success = true, Status = "Success", Message = "User created successfully!" });
         }
     }
 }

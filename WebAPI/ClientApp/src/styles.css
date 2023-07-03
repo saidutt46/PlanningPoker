@@ -1,12 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 code {
@@ -19,3 +15,26 @@ code {
   border-color: #1861ac;
 }
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* notification snackbar styling */
+
+.success-notification {
+  background-color: rgb(43, 209, 43) !important;
+  color: white !important;
+}
+
+::ng-deep snack-bar-container.error-notification {
+  background-color: rgb(236, 88, 88);
+  color: yellow;
+  font-style: bold !important;
+}
+
+::ng-deep snack-bar-container.warning-notification {
+  background-color: rgb(228, 228, 63);
+}
+
+::ng-deep snack-bar-container.info-notification {
+  background-color: rgb(62, 210, 247);
+}
